@@ -179,4 +179,12 @@ class StudentServiceTest {
         //THEN
         assertThat(ratio).isCloseTo(60.0, Offset.offset(0.001));
     }
+
+    @Test
+    void getStudentsBySchoolGroup(){
+        //WHEN
+        var map = studentService.getStudentsBySchoolGroup();
+        //THEN
+        assertThat(map.get(new SchoolGroup((byte)4,'A'))).hasSize(5);
+    }
 }
