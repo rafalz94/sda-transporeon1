@@ -71,5 +71,46 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
+    public List<Student> getStudentsSortedByCityAndLastName() {
+        Comparator<Student> cityComparator = Comparator.comparing(student -> student.getAddress().getCity());
+        return students.stream().sorted(cityComparator.thenComparing(Student::getLastName))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<Student> getStudentsByYearSortedByLastAndFirstName(byte schoolYear) {
+        return students.stream()
+                .filter(student -> student.getSchoolYear() == schoolYear)
+                .sorted(Comparator.comparing(Student::getLastName).thenComparing(Student::getFirstName))
+                .collect(Collectors.toList());
+    }
+
+    public List<Student> getStudentsWhichRepeatedAYear() {
+        return students.stream()
+                .filter(student -> 2022 - student.getStartYear() > student.getSchoolYear())
+                .collect(Collectors.toList());
+    }
+
+    public Map<String, Student> getOldestStudentFromEachCity() {
+        return students.stream()
+                .collect(Collectors.toUnmodifiableMap(
+                        student -> student.getAddress().getCity(),
+                        student -> student,
+                        (student1, student2) -> {
+                            if (student1.getBirthDate().isBefore(student2.getBirthDate())) {
+                                return student1;
+                            }
+                            return student2;
+                        }
+                ));
+    }
+
+    public double getRatioOfStudentsNotFrom(String city) {
+        double notFromKrakow = students.stream()
+                .filter(student -> !student.getAddress().getCity().equals(city))
+                .count();
+        return (notFromKrakow * 100) / students.size();
+    }
+
 }
 
