@@ -129,10 +129,6 @@ public class StudentService {
 
         return numberOfStudentsNotFromCity * 100.0 / students.size();
     }
-public Map<SchoolGroup, List<Student>> getStudentsBySchoolGroup(){
-      return students.stream()
-                .collect(Collectors.groupingBy(student -> new SchoolGroup(student.getSchoolYear(),student.getClassCode())));
-}
 
 
     public Map<SchoolGroup, List<Student>> getStudentsBySchoolGroup() {
