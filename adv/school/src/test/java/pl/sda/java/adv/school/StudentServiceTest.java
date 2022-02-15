@@ -101,6 +101,7 @@ class StudentServiceTest {
                         "00002003"
                 );
     }
+
     @Test
     void getStudentsSortedByCityAndLastName() {
         //WHEN
