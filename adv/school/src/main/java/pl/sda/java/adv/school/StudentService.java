@@ -135,5 +135,10 @@ public Map<SchoolGroup, List<Student>> getStudentsBySchoolGroup(){
 }
 
 
+    public Map<SchoolGroup, List<Student>> getStudentsBySchoolGroup() {
+        return students.stream()
+                .collect(Collectors.groupingBy(student -> new SchoolGroup(student.getSchoolYear(), student.getClassCode())));
+
+    }
 }
 
